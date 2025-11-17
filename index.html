@@ -22,23 +22,6 @@
 
   <div id="result"></div>
 
-  <script>
-    const form = document.getElementById('uploadForm');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      try {
-        const res = await fetch('/upload-csv', {
-          method: 'POST',
-          body: formData
-        });
-        const text = await res.text();
-        document.getElementById('result').innerText = text;
-      } catch (err) {
-        document.getElementById('result').innerText = 'Upload gagal!';
-      }
-    });
-  </script>
+  <script src="upload.js"></script>
 </body>
 </html>
