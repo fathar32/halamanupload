@@ -7,10 +7,11 @@ const { Pool } = require('pg');
 const app = express();
 const upload = multer({ dest: 'uploads/' });
 
-// Railway PostgreSQL connection
+// 🔹 Connection string PostgreSQL Railway
+// Format biasanya: postgres://user:password@host:port/database
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
+  connectionString: "postgresql://postgres:DIXOzTOqpeQvPNhuXKtwEriggeGuJjIy@yamabiko.proxy.rlwy.net:29574/railway",
+  ssl: { rejectUnauthorized: false } // Railway biasanya butuh SSL
 });
 
 app.post('/upload-csv', upload.single('file'), (req, res) => {
@@ -33,14 +34,15 @@ app.post('/upload-csv', upload.single('file'), (req, res) => {
               row.nip,
               row.status_verifikasi,
               row.created_at,
-              row.jabatan
+              row.jabatan,
+              row.perihal
             ]
           );
         }
-        res.send('Upload sukses, data masuk ke database!');
+        res.send('✅ Upload sukses, data masuk ke database Railway!');
       } catch (err) {
         console.error(err);
-        res.status(500).send('Error saat insert data');
+        res.status(500).send('❌ Error saat insert data');
       }
     });
 });
